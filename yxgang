@@ -1,0 +1,67 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8">
+		<title>时钟</title>
+		<style type="text/css">
+			#clock{
+				width: 200px;
+				height: 200px;
+				position: relative;
+				background: url(https://bestace.github.io/fed/ppt/demos/jsBase/img/clock.jpg);
+				background-size: 100%;
+			}
+			#sec{
+				width: 2px;
+		        height: 70px;
+		        background-color: red;
+		        position: absolute;
+		        left: 108px;
+		        top: 110px;
+		        transform-origin: 50% top;
+			}
+			#min{
+				width: 2px;
+		        height: 50px;
+		        background-color: black;
+		        position: absolute;
+		        left: 108px;
+		        top: 110px;
+		        transform-origin: 50% top;
+			}
+			#hour{
+				width: 2px;
+		        height: 40px;
+		        background-color: black;
+		        position: absolute;
+		        left: 108px;
+		        top: 110px;
+		        transform-origin: 50% top;
+			}
+		</style>
+	</head>
+	<body>
+		<div id="clock"></div>
+		<div id="sec"></div>
+		<div id="min"></div>
+		<div id="hour"></div>
+		<script>
+			var oSec = document.getElementById("sec");
+			var oMin = document.getElementById("min");
+			var oHour = document.getElementById("hour");
+			function getnow()
+			{
+				now=new Date;
+				var hour=now.getHours();
+				var min=now.getMinutes();
+				var sec=now.getSeconds();
+				oSec.style.transform="rotate("+sec*6+"deg)";
+				oMin.style.transform="rotate("+min*6+"deg)";
+				oHour.style.transform="rotate("+hour*6+"deg)";
+				setTimeout(getnow,1000);
+			}
+			getnow();
+		</script>
+	</body>
+</html>
