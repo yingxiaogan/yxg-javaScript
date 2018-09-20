@@ -1,0 +1,89 @@
+
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>/title>
+		<style type="text/css">
+			#clock {
+	width: 300px;
+	height: 300px;
+	background: url(https://bestace.github.io/fed/ppt/demos/jsBase/img/clock.jpg);
+	background-size: 100%;
+	position: relative;
+}
+
+#sec {
+	width: 2px;
+	height: 100px;
+	background-color: #f00;
+	position: absolute;
+	left: 150px;
+	top: 50px;
+	transform-origin: 50% bottom;
+	/*transform: rotate(30deg);*/
+}
+#zhazhahui{
+	width: 4px;
+	height: 60px;
+	position: absolute;
+	background: black;
+	  top: 90px;
+	  left: 150px;
+	  transform-origin: bottom;
+	
+	
+}
+#chenxiaochun{
+	width: 2px;
+	height: 80px;
+	background: black;
+	position: absolute;
+	left: 150px;
+	bottom: 150px;
+   	transform-origin: bottom;
+   	
+	
+}
+		</style>
+	</head>
+	
+	<body>
+		
+	<div id="clock">
+	<div id="sec"></div>
+	<div id="zhazhahui"></div>
+	<div id="chenxiaochun"></div>
+    </div>	
+    
+    
+<script type="text/javascript">
+var oSec = document.getElementById("sec");
+var Zzh=document.getElementById('zhazhahui');
+var shanji=document.getElementById('chenxiaochun')
+
+function getNow() {
+	now = new Date();
+	var hour = now.getHours();
+	var min = now.getMinutes();
+	var sec = now.getSeconds();
+	oSec.style.transform="rotate("+sec*6+"deg)";
+     Zzh.style.transform="rotate("+hour*30+"deg)";
+     shanji.style.transform="rotate("+min*6+"deg)";
+
+}
+getNow();
+	setTimeout(getNow, 1000);
+
+
+
+	
+	
+	
+	
+	
+
+
+</script>
+	</body>
+</html>
