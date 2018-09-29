@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="utf-8" />
+		<title>放大镜</title>
+		<style type="text/css">
+			.zoomer{
+				width: 450px;
+				/*border: 1px solid #000;*/
+				position: relative;
+				/*top right bottom left*/
+			}
+			.zoomer img{
+				width: 100%;
+			}
+			.zoomerHandler{
+				width: 150px;
+				height: 150px;
+				border: 1px solid #000;
+				margin: -75px 0 0 -75px;
+				border-radius: 50%;
+				/*
+				 绝对定位的基准：最近的已经定位过的祖先元素
+					定位元素（已经定位过的）：该元素使用过position属性，并且属性值不是static
+						一般情况下，我们使用position：relative来实现定位元素
+				 * */
+				position: absolute;
+				left: 100px;
+				top: 100px;
+				background: url(img/FE.jpg);
+				background-position: -100px -100px;
+				opacity: 0;
+				transition: opacity .5s;
+			}
+		</style>
+	</head>
+	<body>
+		<div class="zoomer">
+			<img src="img/FE.jpg" alt="" />
+			<div class="zoomerHandler"></div>
+		</div>
+		<script>
+			var oZoomer=document.getElementsByClassName("zoomer")[0];
+			var oZoomerHandler=document.getElementsByClassName("zoomerHandler")[0];
+			function overHandler () {
+				oZoomerHandler.style.opacity=1;
+				oZoomer.addEventListener("mousemove",moveHandler);
+			}
+			function outHandler () {
+				oZoomerHandler.style.opacity=0;
+				oZoomer.removeEventListener("mousemove",moveHandler);
+			}
+			function moveHandler (event) {
+				var event=event||window.event;
+				var oZoomerX=oZoomer.getBoundingClientRect().left;
+				var oZoomerY=oZoomer.getBoundingClientRect().top;
+				var oZoomerHandlerX=oZoomerHandler.getBoundingClientRect().left;
+				var oZoomerHandlerY=oZoomerHandler.getBoundingClientRect().top;
+				var oZoomerHandlerOffsetX = oZoomerHandlerX- oZoomerX;
+				var oZoomerHandlerOffsetY = oZoomerHandlerY- oZoomerY;
+				oZoomerHandler.style.left=event.pageX-oZoomerX+"px";
+				oZoomerHandler.style.top=event.pageY-oZoomerY+"px";
+				oZoomerHandler.style.backgroundPositionX=-2.442*oZoomerHandlerOffsetX-75+"px";
+				oZoomerHandler.style.backgroundPositionY=-2.442*oZoomerHandlerOffsetY-75+"px";
+			}
+			oZoomer.addEventListener("mouseover",overHandler);
+			oZoomer.addEventListener("mouseout",outHandler);
+		</script>
+	</body>
+</html>
