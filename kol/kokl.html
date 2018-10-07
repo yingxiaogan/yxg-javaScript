@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+	<head>
+		<meta charset="UTF-8">
+		<title>多图放大镜</title>
+		<style type="text/css">
+			.menhera{
+				width: 480px;
+				height: 415.5px;
+				margin: 30px;
+			}
+			.bigmenhera{
+				position: fixed;
+				transform: translate(-50%, -50%);
+				pointer-events: none;
+				border-radius: 50%;
+			}
+		</style>
+	</head>
+	<body>
+		<img src="img/1.jpg" class="menhera"/>
+		<img src="img/2.jpg" class="menhera"/>
+		<img src="img/3.jpg" class="menhera"/>
+		<img src="img/4.jpg" class="menhera"/>
+		<script type="text/javascript">
+			(function() {			    var str = [];
+				var winWidth=window.innerWidth;
+				var winHeight=window.innerHeight;
+		        var men =document.getElementsByClassName('menhera');
+				var bigmen = document.createElement('div');
+				bigmen.className = 'bigmenhera';
+				document.body.appendChild(bigmen);
+				
+				for(var i = 0; i < men.length; i++) {
+
+					men[i].addEventListener("load", (function(n) {
+						return function() {
+							str[n] = men[n].naturalWidth / men[n].width;
+						}
+					})(i));
+					
+					
+					men[i].addEventListener("mousemove", (function(n) {
+						return function(event) {
+							var event = event || window.event;
+							var target = event.target || event.srcElement;
+							
+							var cx = event.clientX;
+							var cy = event.clientY;
+							
+							var ox=event.offsetX||event.layerX;
+							var oy=event.offsetY||event.layerY;
+
+							var menShowWidth = 100;
+							var menShowHeight = 100;
+
+							bigmen.style.width = menShowWidth + "px";
+							bigmen.style.height = menShowHeight + "px";
+							bigmen.style.left = cx + "px";
+							bigmen.style.top =  cy + "px";	
+							bigmen.style.backgroundImage = 'url(' + target.src + ')';
+							bigmen.style.backgroundPosition = (-str[n] *ox + menShowWidth / 2) + "px "+(-str[n] * oy + menShowHeight / 2) + "px";
+							bigmen.style.display = "block";
+						}
+					})(i));
+					men[i].addEventListener("mouseout", function() {
+						bigmen.style.display = "none";
+					});
+				}
+					})();
+		</script>
+	</body>
+</html>
